@@ -46,27 +46,25 @@ const Nbooks = () => {
           <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Discover the inspiring tales written by Nabaghan Panda</h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+        <div className="mb-4 text-sm text-slate-400">Swipe to view more</div>
+        <div className="flex gap-6 overflow-x-auto pb-4 pr-4 scroll-smooth snap-x snap-mandatory lg:grid lg:grid-cols-2 xl:grid-cols-5">
           {books.map((book) => (
-            <div key={book.id} className="group overflow-hidden rounded-[2rem] border border-slate-700 bg-white/5 p-4 shadow-2xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:border-slate-500">
-              <div className={`mb-5 overflow-hidden rounded-[1.75rem] bg-gradient-to-br ${book.color} p-5 text-slate-950`} style={{ aspectRatio: '3 / 4' }}>
-                <div className="flex h-full flex-col items-start justify-end gap-3">
-                  <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-900">Book</span>
-                  <h3 className="text-lg font-bold leading-none">{book.title}</h3>
-                </div>
-              </div>
-              <div className="space-y-3 px-1 pb-3">
+            <a
+              key={book.id}
+              href={book.pdfUrl}
+              target="_blank"
+              rel="noreferrer"
+              title={`${book.title} - ${book.description}`}
+              className="min-w-[80vw] shrink-0 snap-start rounded-[2rem] border border-slate-700 bg-white/5 shadow-2xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:border-slate-500 lg:min-w-auto"
+            >
+              <div
+                className={`mb-3 aspect-[3/4] overflow-hidden rounded-t-[1.75rem] bg-gradient-to-br ${book.color}`}
+              />
+              <div className="space-y-2 p-4 text-left">
+                <h3 className="text-lg font-semibold text-white">{book.title}</h3>
                 <p className="text-sm text-slate-300">{book.description}</p>
-                <a
-                  href={book.pdfUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-slate-100 px-3 py-2 text-xs font-semibold text-slate-950 transition hover:bg-white"
-                >
-                  Open PDF
-                </a>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
