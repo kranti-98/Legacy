@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { sbooks } from '../books/sbooksData'
 import type { Sbook } from '../books/sbooksData'
 
@@ -7,6 +7,26 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchResults, setSearchResults] = useState<Sbook[]>([])
   const [searchMessage, setSearchMessage] = useState('')
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      const target = e.target as Node
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        if (searchTerm.trim() === '') {
+          setSearchOpen(false)
+        }
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [searchTerm])
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -62,7 +82,7 @@ const Header = () => {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <h1 className="text-3xl font-extrabold text-white">Legacy</h1>
         <div className="flex items-center gap-4">
-          <nav className="hidden sm:flex gap-6">
+          <nav className="flex gap-6">
             <button
               onClick={() => scrollToSection('books')}
               className="text-lg font-semibold text-slate-300 transition hover:text-white"
@@ -79,6 +99,7 @@ const Header = () => {
 
           <div className="relative">
             <button
+              ref={buttonRef}
               type="button"
               onClick={() => setSearchOpen((open) => !open)}
               className="rounded-full bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-slate-700"
@@ -87,7 +108,7 @@ const Header = () => {
             </button>
 
             {searchOpen && (
-              <div className="absolute right-0 z-50 mt-2 w-72 rounded-3xl border border-slate-700 bg-slate-950 p-4 shadow-2xl shadow-black/50">
+              <div ref={dropdownRef} className="absolute right-0 z-50 mt-2 w-72 rounded-3xl border border-slate-700 bg-slate-950 p-4 shadow-2xl shadow-black/50">
                 <div className="space-y-3">
                   <label className="block text-xs uppercase tracking-[0.35em] text-slate-400">Search Books</label>
                   <input

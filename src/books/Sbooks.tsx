@@ -12,10 +12,10 @@ const Sbooks = () => {
       target="_blank"
       rel="noreferrer"
       title={`${book.title} - ${book.description}`}
-      className="min-w-[80vw] shrink-0 snap-start rounded-[2rem] border border-slate-700 bg-white/5 shadow-2xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:border-slate-500 lg:min-w-auto"
+      className="w-[80vw] min-w-[80vw] max-w-[80vw] shrink-0 snap-start rounded-[2rem] border border-slate-700 bg-white/5 shadow-2xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:border-slate-500 lg:min-w-auto lg:w-auto lg:max-w-none"
     >
       <div
-        className={`aspect-[3/4] overflow-hidden rounded-t-[1.75rem] ${book.coverImage ? '' : `bg-gradient-to-br ${book.coverImage}`}`}
+        className={`mb-3 aspect-[3/4] overflow-hidden rounded-t-[1.75rem] ${book.coverImage ? '' : `bg-gradient-to-br ${book.coverImage}`}`}
       >
         {book.coverImage ? (
           <img
@@ -41,7 +41,7 @@ const Sbooks = () => {
         </div>
 
         <div className="mb-4 text-sm text-slate-400">Swipe to view more</div>
-        <div className="flex gap-4 overflow-x-auto pb-4 pr-4 scroll-smooth snap-x snap-mandatory lg:grid lg:grid-cols-2 xl:grid-cols-5">
+        <div className="flex gap-6 overflow-x-auto pb-4 pr-4 scroll-smooth snap-x snap-mandatory lg:grid lg:grid-cols-2 xl:grid-cols-5">
           {bookCards}
         </div>
 
